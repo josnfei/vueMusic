@@ -1,20 +1,18 @@
 <template>
   <div id="app">
-   hello world
+    <m-header></m-header>
     <router-view/>
   </div>
 </template>
 
 <script>
+import MHeader from 'components/m-header/m-header';
+
 export default {
-  name: 'App'
+  components:{
+    MHeader
+  }
 }
 </script>
 
-<style scoped lang="stylus">
-  /* stylus 的引入,不用url  less 可用也可以不用   */
-@import "./common/stylus/variable.styl";
-#app
-  color:red
-
-</style>
+<style scoped lang="stylus"></style>

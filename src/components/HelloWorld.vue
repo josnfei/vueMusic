@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    131223
+    13122379
   </div>
 </template>
 
@@ -18,7 +18,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
 /* @import url('../common/stylus/variable.less'); */
-@import '../common/stylus/variable.less';
+@import '~common/stylus/variable.less';
 
 .hello{
   color:aqua;
