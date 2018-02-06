@@ -21,26 +21,37 @@
   
   <script>
     import Slider from 'base/slider/slider';
-    import getRecommend from 'api/recommend';  
+    import {getRecommend, getDiscList} from 'api/recommend';  
     import {ERR_OK} from 'api/config';
 
     export default{
       data(){
         return{
-          recommends:[]
+          recommends:[],
+          discList:[]
         }
       },
       created(){
         this._getRecommend();
+        this._getDiscList();
       },
       methods:{
+        // 请求推荐歌曲列表
+        _getDiscList(){
+          getDiscList().then((res) => {
+          if (res.code === ERR_OK) {
+            console.log(this.discList);
+            this.discList = res.data.list
+          }
+          })
+        },
         // 请求轮播图
         _getRecommend(){
           getRecommend().then(res=>{
-            console.log(res);
+            // console.log(res);
             if(res.code===ERR_OK){
               this.recommends=res.data.slider;
-              console.log(res.data);
+              // console.log(res.data);
             }
           })
         }
