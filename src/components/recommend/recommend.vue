@@ -32,12 +32,17 @@
             </ul>
           </div>
        </div>
+       <!-- loading组件 -->
+       <div class="loading-container" v-show='!discList.length'>
+          <loading title='拼命加载中'></loading>
+        </div>
       </scroll>
     </div>
   </template>
   
   <script>
     import Slider from 'base/slider/slider';
+    import Loading from 'base/loading/loading'
     import Scroll from 'base/scroll/scroll'
     import {getRecommend, getDiscList} from 'api/recommend';  
     import {ERR_OK} from 'api/config';
@@ -51,8 +56,9 @@
       },
       created(){
         this._getRecommend();
-        this._getDiscList();
-        console.log(this);
+        setTimeout(()=>{
+          this._getDiscList();
+        },1000)
       },
       methods:{
         // 处理scroll正常
@@ -84,7 +90,8 @@
       },
       components:{
         Slider,
-        Scroll
+        Scroll,
+        Loading
       }
     }
   </script>
