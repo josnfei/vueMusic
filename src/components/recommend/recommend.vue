@@ -1,6 +1,6 @@
 <template>
     <div class="recommend" ref="recommend">
-      <scroll class="recommend-content" :data='discList'>  
+      <scroll ref='scroll' class="recommend-content" :data='discList'>  
         <!--:data='discList' 绑定这个,让scroll去监听,因为我数据是异步的
           为什么一开始不去用recommends,因为他也是异步加载的,没处理这个也正常,因为他在调用的时候,是在discList前面,但是也不能保证他数据先回来
           所以 在recommends的时候,可以用onload事件,去判断他,他是靠图片撑开的,所以 当他图片回来的时候,再次调用scroll初始化的方法
@@ -11,7 +11,7 @@
             <slider :loop='false' :interval=1000>
               <div v-for='item in recommends'>
                 <a :href="item.linkUrl">
-                  <img :src="item.picUrl" @load='loadImage' alt="">
+                  <img  @load='loadImage' :src="item.picUrl" alt="">
                 </a>
               </div>
             </slider>
@@ -37,8 +37,8 @@
   </template>
   
   <script>
-    import Scroll from 'base/scroll/scroll'
     import Slider from 'base/slider/slider';
+    import Scroll from 'base/scroll/scroll'
     import {getRecommend, getDiscList} from 'api/recommend';  
     import {ERR_OK} from 'api/config';
 
@@ -52,13 +52,14 @@
       created(){
         this._getRecommend();
         this._getDiscList();
+        console.log(this);
       },
       methods:{
         // 处理scroll正常
         loadImage(){
           if(!this.checkloaded){ //图片有很多,但是一张回来就够了,执行一次即可
             this.checkloaded=true;
-            this.$refs.scroll.refresh(); //再次初始化
+            this.$refs.scroll.refresh(); //再次初始化scroll
           }
         },
         // 请求推荐歌曲列表
