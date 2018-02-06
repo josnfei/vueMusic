@@ -1,36 +1,39 @@
 <template>
     <div class="recommend" ref="recommend">
-      <div class="recommend-content">
-      <!-- 轮播图 -->
-      <div v-if="recommends.length" class="slider-wrapper">
-        <slider :loop='false' :interval=1000>
-          <div v-for='item in recommends'>
-            <a :href="item.linkUrl">
-              <img :src="item.picUrl" alt="">
-            </a>
+      <scroll class="recommend-content" :data='discList'>  <!--:data='discList' 绑定这个,让scroll去监听,因为我数据是异步的-->
+       <div>
+          <!-- 轮播图 -->
+          <div v-if="recommends.length" class="slider-wrapper">
+            <slider :loop='false' :interval=1000>
+              <div v-for='item in recommends'>
+                <a :href="item.linkUrl">
+                  <img :src="item.picUrl" alt="">
+                </a>
+              </div>
+            </slider>
           </div>
-        </slider>
-      </div>
-      <!-- 热门歌单推荐  -->
-      <div class="recommend-list">
-        <h1 class="list-title">热门歌单推荐</h1>
-        <ul>
-          <li v-for="item in discList" class="item">
-            <div class="icon">
-              <img width="60" height="60" :src="item.imgurl">
-            </div>
-            <div class="text">
-              <h2 class="name" v-html="item.creator.name"></h2>
-              <p class="desc" v-html="item.dissname"></p>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
+          <!-- 热门歌单推荐  -->
+          <div class="recommend-list">
+            <h1 class="list-title">热门歌单推荐</h1>
+            <ul>
+              <li v-for="item in discList" class="item">
+                <div class="icon">
+                  <img width="60" height="60" :src="item.imgurl">
+                </div>
+                <div class="text">
+                  <h2 class="name" v-html="item.creator.name"></h2>
+                  <p class="desc" v-html="item.dissname"></p>
+                </div>
+              </li>
+            </ul>
+          </div>
+       </div>
+      </scroll>
     </div>
   </template>
   
   <script>
+    import Scroll from 'base/scroll/scroll'
     import Slider from 'base/slider/slider';
     import {getRecommend, getDiscList} from 'api/recommend';  
     import {ERR_OK} from 'api/config';
@@ -68,7 +71,8 @@
         }
       },
       components:{
-        Slider
+        Slider,
+        Scroll
       }
     }
   </script>
